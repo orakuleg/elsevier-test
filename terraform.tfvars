@@ -1,0 +1,7 @@
+aws_region                = "eu-west-1"
+website_bucket_name       = "biserov-test-elsevier"
+name                      = "biserov-test-elsevier"
+index_document            = "index.html"
+error_document            = "error.html"
+origin_id                 = "website"
+default_root_object       = "index.html"
