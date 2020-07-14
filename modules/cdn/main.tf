@@ -1,6 +1,6 @@
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = "${var.out_bucket}.s3.amazonaws.com"
+    domain_name = "${var.website_bucket_name}.s3.amazonaws.com"
     origin_id   = var.origin_id
   }
 
@@ -9,8 +9,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   comment             = "Managed by Terraform"
   default_root_object = var.default_root_object
 
-//  Due to certificate issues not done yet
-//  aliases = [var.domain_name]
+  aliases = [var.domain_name, "www.${var.domain_name}"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -31,6 +30,33 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     max_ttl                = 86400
   }
 
+  ordered_cache_behavior {
+    allowed_methods = [
+      "DELETE",
+      "GET",
+      "HEAD",
+      "OPTIONS",
+      "PATCH",
+      "POST",
+      "PUT"]
+    cached_methods = [
+      "GET",
+      "HEAD"]
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
+
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl = 0
+    default_ttl = 3600
+    max_ttl = 86400
+    path_pattern = "*"
+    target_origin_id = var.origin_id
+  }
   price_class = "PriceClass_100"
 
   restrictions {
@@ -44,6 +70,16 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn       = var.certificate_arn
+    ssl_support_method        = "sni-only"
+    minimum_protocol_version  = "TLSv1.1_2016"
   }
+}
+
+output "out_cdn_domain" {
+  value = aws_cloudfront_distribution.s3_distribution.domain_name
+}
+
+output "out_cdn_hosted_zone_id" {
+  value = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
 }

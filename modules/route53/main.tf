@@ -12,8 +12,8 @@ resource "aws_route53_record" "main-a-record" {
   zone_id = aws_route53_zone.main.zone_id
   type = "A"
   alias {
-    name = var.out_website_domain
-    zone_id = var.out_hosted_zone_id
+    name = var.out_cdn_domain
+    zone_id = var.out_cdn_hosted_zone_id
     evaluate_target_health = false
   }
 }

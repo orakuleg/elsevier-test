@@ -73,18 +73,6 @@ resource "aws_s3_bucket" "website_redirect" {
   acl = "public-read"
 
   website {
-    redirect_all_requests_to = var.website_bucket_name
+    redirect_all_requests_to = "https://${var.website_bucket_name}"
   }
-}
-
-output "out_website_domain" {
-  value = aws_s3_bucket.website.website_domain
-}
-
-output "out_hosted_zone_id" {
-  value = aws_s3_bucket.website.hosted_zone_id
-}
-
-output "out_bucket" {
-  value = aws_s3_bucket.website.bucket
 }
