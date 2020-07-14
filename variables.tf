@@ -49,3 +49,18 @@ variable "website_bucket_name" {
   type        = string
   description = "Name of bucket for hosting"
 }
+
+variable "domain_name" {
+  type        = string
+  description = "Domain name"
+}
+
+# Allowed IPs that can directly access the S3 bucket
+variable "allowed_ips" {
+  type        = list
+  default     = [
+    "0.0.0.0/0"            # public access
+    # "xxx.xxx.xxx.xxx/mm" # restricted
+    # "999.999.999.999/32" # invalid IP, completely inaccessible
+  ]
+}

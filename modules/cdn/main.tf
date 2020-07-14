@@ -1,6 +1,6 @@
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = "${var.website_bucket_name}.s3.amazonaws.com"
+    domain_name = "${var.out_bucket}.s3.amazonaws.com"
     origin_id   = var.origin_id
   }
 
@@ -8,6 +8,9 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   is_ipv6_enabled     = true
   comment             = "Managed by Terraform"
   default_root_object = var.default_root_object
+
+//  Due to certificate issues not done yet
+//  aliases = [var.domain_name]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]

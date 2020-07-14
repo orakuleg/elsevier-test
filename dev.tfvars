@@ -5,3 +5,6 @@ index_document            = "index.html"
 error_document            = "error.html"
 origin_id                 = "website"
 default_root_object       = "index.html"
+environment               = "dev"
+domain_name               = "biserov-test.nl"
+allowed_ips               = ["0.0.0.0/0"]
