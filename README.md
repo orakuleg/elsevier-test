@@ -1,5 +1,4 @@
 # AWS S3 Static Website Terraform Module
-
 Terraform Module for an Amazon S3 Static Website, fronted by a CloundFront Distribution.
 Terraform project for an AWS. Will create following things: 
 - Two buckets.
@@ -10,11 +9,9 @@ Required:
 - Own domain.
 - Certificate imported into AWS.
 
-
 Project still in development - see [TODO section](#todo).
 
 ## Features
-
 This module allows for [Hosting a Static Website on Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html), provisioning the following:
 
 - S3 Bucket for static public files
@@ -33,3 +30,12 @@ It requires (for now?) that the following have been setup outside this module:
 As well, could be easily improved:
 - Security.
 - Network Routing.
+
+## Usage
+```
+for DEV: terraform apply -var-file="secrets.tfvars" -var-file="dev.tfvars"
+for PRODUCTION: terraform apply -var-file="secrets.tfvars" -var-file="production.tfvars"
+```
+
+#####NOTE
+Additionally, you must provide file  secrets.tfvars containing aws_access_key and aws_secret_key.
