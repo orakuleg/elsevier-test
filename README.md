@@ -37,5 +37,4 @@ for DEV: terraform apply -var-file="secrets.tfvars" -var-file="dev.tfvars"
 for PRODUCTION: terraform apply -var-file="secrets.tfvars" -var-file="production.tfvars"
 ```
 
-#####NOTE
-Additionally, you must provide file  secrets.tfvars containing aws_access_key and aws_secret_key.
+###### NOTE Additionally, you must provide file  secrets.tfvars containing aws_access_key and aws_secret_key.
