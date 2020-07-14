@@ -1,19 +1,30 @@
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
     domain_name = "${var.website_bucket_name}.s3.amazonaws.com"
-    origin_id   = var.origin_id
+    origin_id = var.origin_id
   }
 
-  enabled             = true
-  is_ipv6_enabled     = true
-  comment             = "Managed by Terraform"
+  enabled = true
+  is_ipv6_enabled = true
+  comment = "Managed by Terraform"
   default_root_object = var.default_root_object
 
-  aliases = [var.domain_name, "www.${var.domain_name}"]
+  aliases = [
+    var.domain_name,
+    "www.${var.domain_name}"]
 
   default_cache_behavior {
-    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods   = ["GET", "HEAD"]
+    allowed_methods = [
+      "DELETE",
+      "GET",
+      "HEAD",
+      "OPTIONS",
+      "PATCH",
+      "POST",
+      "PUT"]
+    cached_methods = [
+      "GET",
+      "HEAD"]
     target_origin_id = var.origin_id
 
     forwarded_values {
@@ -25,9 +36,9 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
 
     viewer_protocol_policy = "allow-all"
-    min_ttl                = 0
-    default_ttl            = 3600
-    max_ttl                = 86400
+    min_ttl = 0
+    default_ttl = 3600
+    max_ttl = 86400
   }
 
   ordered_cache_behavior {
@@ -70,9 +81,9 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn       = var.certificate_arn
-    ssl_support_method        = "sni-only"
-    minimum_protocol_version  = "TLSv1.1_2016"
+    acm_certificate_arn = var.certificate_arn
+    ssl_support_method = "sni-only"
+    minimum_protocol_version = "TLSv1.1_2016"
   }
 }
 

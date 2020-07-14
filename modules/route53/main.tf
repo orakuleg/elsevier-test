@@ -23,5 +23,6 @@ resource "aws_route53_record" "main-c-name" {
   name = "www"
   type = "CNAME"
   ttl = "300"
-  records = [var.domain_name]
+  records = [
+    var.domain_name]
 }
