@@ -33,8 +33,23 @@ As well, could be easily improved:
 
 ## Usage
 ```
-for DEV: terraform apply -var-file="secrets.tfvars" -var-file="dev.tfvars"
-for PRODUCTION: terraform apply -var-file="secrets.tfvars" -var-file="production.tfvars"
+Initial procedure:
+- Lets initialize a working directory:
+-- terraform init 
+
+- Let create wokrspace for each environment and apply infrastructure:
+- For dev:
+-- terraform wokspace new dev && terraform apply -var-file="secrets.tfvars" -var-file="dev.tfvars"
+- For production:
+-- terraform wokspace new production && terraform apply -var-file="secrets.tfvars" -var-file="production.tfvars"
+- After that you will be able to switch workspaces with command:
+-- terraform workspace select dev/production
 ```
 
-###### NOTE Additionally, you must provide file  secrets.tfvars containing aws_access_key and aws_secret_key.
+## Examples
+- dev environment: https://dev.biserov-test.nl/ https://www.dev.biserov-test.nl/ 
+- production environment: https://biserov-test.nl/ https://www.biserov-test.nl/
+
+###### NOTE:
+###### Additionally, you must provide file  secrets.tfvars containing aws_access_key and aws_secret_key.
+###### For your subdomain (for example dev.biserov-test.nl ) terraform will create a new hosted zone called as domain ( dev.biserov-test.nl ). <br/> And if you want to use this hosted zone too, then you need to specify additional NS records in your main hosted zone, and they must be targeted to namesevers from your subdomain.

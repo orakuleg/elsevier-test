@@ -65,8 +65,3 @@ variable "origin_id" {
   description = "origin name"
   default     = "website"
 }
-
-variable "website_bucket_name" {
-  type        = string
-  description = "Name of bucket for hosting"
-}

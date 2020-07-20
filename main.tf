@@ -21,7 +21,6 @@ module "cdn" {
   default_root_object       = var.default_root_object
   environment               = var.environment
   origin_id                 = var.origin_id
-  website_bucket_name       = var.website_bucket_name
 }
 
 module "route53" {
